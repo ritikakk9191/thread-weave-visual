@@ -1,15 +1,17 @@
 
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 
-const ThreadForm: React.FC = () => {
+interface ThreadFormProps {
+  onSuccess?: () => void;
+}
+
+const ThreadForm: React.FC<ThreadFormProps> = ({ onSuccess }) => {
   const [url, setUrl] = useState('');
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const { toast } = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -43,7 +45,9 @@ const ThreadForm: React.FC = () => {
         title: "Thread Imported",
         description: "Your thread has been successfully imported",
       });
-      navigate('/visualize');
+      if (onSuccess) {
+        onSuccess();
+      }
     }, 1500);
   };
 

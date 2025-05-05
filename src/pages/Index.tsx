@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavBar from '@/components/NavBar';
 import HeroSection from '@/components/HeroSection';
 import FeaturesSection from '@/components/FeaturesSection';
@@ -7,6 +8,12 @@ import ThreadForm from '@/components/ThreadForm';
 import Footer from '@/components/Footer';
 
 const Index = () => {
+  const navigate = useNavigate();
+  
+  const handleThreadSuccess = () => {
+    navigate('/visualize');
+  };
+  
   return (
     <div className="min-h-screen flex flex-col">
       <NavBar />
@@ -20,7 +27,7 @@ const Index = () => {
               Enter a Reddit or Twitter thread URL to see ThreadMap in action
             </p>
           </div>
-          <ThreadForm />
+          <ThreadForm onSuccess={handleThreadSuccess} />
         </div>
       </main>
       <Footer />
